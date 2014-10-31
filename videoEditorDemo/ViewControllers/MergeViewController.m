@@ -114,6 +114,11 @@
         NSString *myPathDocs =  [documentsDirectory stringByAppendingPathComponent:
                                  [NSString stringWithFormat:@"mergeVideo-%d.mov",arc4random() % 1000]];
         NSURL *url = [NSURL fileURLWithPath:myPathDocs];
+        
+        // 4.1 - cut the video
+        CMTimeRange timeRange = CMTimeRangeMake(kCMTimeZero, firstAsset.duration);
+        [mixComposition removeTimeRange:timeRange];
+        
         // 5 - Create exporter
         AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition
                                                                           presetName:AVAssetExportPresetHighestQuality];
